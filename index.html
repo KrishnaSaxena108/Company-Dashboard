@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karma Corporation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F7F7F4;
+        }
+
+        header {
+            background-color: #324C6B;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            height: 150px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 50px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        nav ul li a:hover {
+            color: #F7F7F4;
+        }
+
+        h1 {
+            margin: 10px;
+        }
+
+        header img {
+            position: relative;
+            top: 20px;
+            right: 650px;
+            border-radius: 50px;
+            -webkit-box-shadow: 0 0 10px #1C1F26;
+            box-shadow: 0 0 10px #1C1F26;
+        }
+
+        header img:hover {
+            -webkit-box-shadow: 0 0 20px #1C1F26;
+            box-shadow: 0 0 20px #1C1F26;
+        }
+
+        header h1 {
+            position: relative;
+            left: 50px;
+            bottom: 50px;
+            display: inline;
+            text-shadow: 0 0 10px #1C1F26;
+        }
+
+        .login-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .login-btn {
+            position: relative;
+            bottom: 175px;
+            left: 500px;
+            background-color: #F7F7F4;
+            color: #1C1F26;
+            padding: 15px 30px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            -webkit-transition: all 0.3s ease;
+            -o-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: #1C1F26;
+            color: #F7F7F4;
+            -webkit-box-shadow: 0 0 20px #1C1F26;
+            box-shadow: 0 0 20px #1C1F26;
+        }
+
+        .admin-content,
+        .employee-content {
+            display: none;
+            margin: 20px;
+        }
+
+        .teams {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-pack: distribute;
+            justify-content: space-around;
+            margin-top: 50px;
+        }
+
+        .team {
+            background-color: #324C6B;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            -webkit-box-shadow: 0 0 10px #1C1F26;
+            box-shadow: 0 0 10px #1C1F26;
+            width: 20%;
+            text-align: center;
+        }
+
+        .team h3 {
+            margin-bottom: 20px;
+            text-shadow: 0 0 5px #1C1F26;
+        }
+
+        .member {
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .member:hover {
+            color: #f7f7f4;
+        }
+
+        .admin-content h2 {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 30px;
+        }
+
+        .employee-content h2 {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 24px;
+        }
+
+        .employee-details {
+            background-color: #fff;
+            border-radius: 10px;
+            -webkit-box-shadow: 0 0 10px #1C1F26;
+            box-shadow: 0 0 10px #1C1F26;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .progress-bar {
+            height: 20px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background-color: #324C6B;
+            border-radius: 10px;
+            width: 0;
+            -webkit-transition: width 0.5s ease-in-out;
+            -o-transition: width 0.5s ease-in-out;
+            transition: width 0.5s ease-in-out;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 50%;
+            -webkit-box-shadow: 0 0 10px #1C1F26;
+            box-shadow: 0 0 10px #1C1F26;
+            position: relative;
+        }
+
+        .modal-header {
+            font-size: 24px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .modal-body {
+            font-size: 18px;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        #about {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            margin: 100px;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 15px;
+            -webkit-box-shadow: 0 0 20px #1C1F26;
+            box-shadow: 0 0 20px #1C1F26;
+        }
+
+        #about p {
+            -webkit-box-flex: 2;
+            -ms-flex: 2;
+            flex: 2;
+            margin-right: 20px;
+            font-size: 18px;
+            line-height: 1.8;
+            color: #324C6B;
+            word-spacing: 4px;
+        }
+
+        #about p b {
+            font-size: 22px;
+            color: #1C1F26;
+        }
+
+        #about img {
+            position: relative;
+            left: -25px;
+            height: 200px;
+            width: 200px;
+            border-radius: 100px;
+            border: 4px solid #324C6B;
+            margin-left: 20px;
+        }
+
+        #services {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+            margin: 100px;
+        }
+
+        .service1,
+        .service2,
+        .service3 {
+            -webkit-box-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 15px;
+            -webkit-box-shadow: 0 0 20px #1C1F26;
+            box-shadow: 0 0 20px #1C1F26;
+            margin: 20px;
+        }
+
+        .service1 h2,
+        .service2 h2,
+        .service3 h2 {
+            color: #324C6B;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .service1 p,
+        .service2 p,
+        .service3 p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #324C6B;
+            word-spacing: 4px;
+        }
+
+        footer {
+            background-color: #324C6B;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        footer ul {
+            list-style-type: none;
+            margin: 0;
+        }
+
+        footer ul li {
+            display: inline;
+            margin: 20px;
+        }
+
+        footer ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        footer ul li a:hover {
+            color: #F7F7F4;
+        }
+
+        footer p {
+            margin-top: 20px;
+        }
+
+        footer p a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        footer p a:hover {
+            color: #F7F7F4;
+        }
+
+        .service1:hover {
+            background-image: url('innovation.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .service2:hover {
+            background-image: url('cloud.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .service3:hover {
+            background-image: url('ai.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .service1:hover h2,
+        .service2:hover h2,
+        .service3:hover h2 {
+            color: #F7F7F4;
+        }
+
+        #services p:hover {
+            color: #F7F7F4;
+        }
+
+        #about:hover {
+            background-image: url('Cbg.avif');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+
+<header>
+    <h1>Karma Corporation</h1>
+    <img src="logo.png" alt="Karma Corporation Logo" width="100px">
+    <nav id="home">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="login-container">
+            <button class="login-btn" onclick="adminLogin()">Login as Admin</button><br>
+            <button class="login-btn" onclick="employeeLogin()">Login as Employee</button>
+        </div>
+    </nav>
+</header>
+
+<body>
+
+    <div id="about">
+        <img src="company.jpg" alt="Company Image">
+        <p>
+            <b>Karma Corporation</b> is a forward-thinking, product-driven company committed to transforming the way the
+            world
+            interacts with technology. With a strong focus on innovation and user-centric design, we create cutting-edge
+            solutions that empower individuals and businesses to achieve more. From pioneering software to
+            groundbreaking digital tools, our products are designed to enhance productivity, foster creativity, and
+            drive meaningful connections. At Karma Corporation, we believe in shaping the future with technology that
+            works seamlessly, delivering both simplicity and power. Our mission is to build products that not only solve
+            today’s challenges but also anticipate tomorrow's possibilities.
+        </p>
+    </div>
+
+    <div id="services">
+        <div class="service1">
+            <h2>Innovative Software solutions</h2>
+            <p>Karma Corporation, we specialize in developing cutting-edge software products that are intuitive,
+                reliable, and scalable. Our solutions cater to diverse industries, enabling businesses to optimize their
+                operations, enhance productivity, and unlock new growth opportunities.Our commitment to quality ensures
+                that our software evolves with your needs, providing robust
+                functionality while being easy to use.</p>
+        </div>
+        <div class="service2">
+            <h2>Cloud Computing & Infrastructure</h2>
+            <p>Karma Corporation’s cloud computing services offer secure, scalable, and high-performance infrastructure
+                for businesses of all sizes. Our cloud solutions are designed to adapt to your business needs, providing
+                flexibility, reliability, and cost-efficiency. We provide seamless integration, ensuring that your
+                digital transformation journey is smooth and
+                future-proof, with top-tier security and performance.</p>
+        </div>
+        <div class="service3">
+            <h2>Artificial Intelligence & Machine Learning</h2>
+            <p>Karma Corporation is at the forefront of artificial intelligence and machine learning innovation. Our
+                AI-driven solutions help businesses automate complex tasks, gain predictive insights, and enhance
+                decision-making capabilities.From AI-poweredcustomer service to advanced analytics, we harness the
+                potential of machine learning to solve modern
+                business challenges and create smarter, data-driven strategies.</p>
+        </div>
+    </div>
+
+    <div class="admin-content" id="adminContent">
+        <h2>Team Management</h2>
+        <div class="teams">
+            <div class="team">
+                <h3>Team Alpha</h3>
+                <div class="member" onclick="showProfile('Liora Ashford')">Liora Ashford</div>
+                <div class="member" onclick="showProfile('Caden Montrose')">Caden Montrose</div>
+                <div class="member" onclick="showProfile('Elara Winslow')">Elara Winslow</div>
+                <div class="member" onclick="showProfile('Keaton Voss')">Keaton Voss</div>
+            </div>
+            <div class="team">
+                <h3>Team Beta</h3>
+                <div class="member" onclick="showProfile('Sarina Everhart')">Sarina Everhart</div>
+                <div class="member" onclick="showProfile('Daxen Corbyn')">Daxen Corbyn</div>
+                <div class="member" onclick="showProfile('Zylia Rainford')">Zylia Rainford</div>
+                <div class="member" onclick="showProfile('Alder Galloway')">Alder Galloway</div>
+            </div>
+            <div class="team">
+                <h3>Team Gamma</h3>
+                <div class="member" onclick="showProfile('Isolde Harrington')">Isolde Harrington</div>
+                <div class="member" onclick="showProfile('Tavian Crosswell')">Tavian Crosswell</div>
+                <div class="member" onclick="showProfile('Mira Lancaster')">Mira Lancaster</div>
+                <div class="member" onclick="showProfile('Ronan Whitlock')">Ronan Whitlock</div>
+            </div>
+            <div class="team">
+                <h3>Team Delta</h3>
+                <div class="member" onclick="showProfile('Selene Drayton')">Selene Drayton</div>
+                <div class="member" onclick="showProfile('Thane Callister')">Thane Callister</div>
+                <div class="member" onclick="showProfile('Juno Merrick')">Juno Merrick</div>
+                <div class="member" onclick="showProfile('Evander Falkner')">Evander Falkner</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="employee-content" id="employeeContent">
+        <h2>Employee Dashboard</h2>
+        <div class="employee-details" id="employeeDetails">
+        </div>
+    </div>
+
+    <div class="modal" id="profileModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div class="modal-header" id="profileName"></div>
+            <div class="modal-body" id="profileDetails"></div>
+        </div>
+    </div>
+
+    <footer id="contact">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <p>&copy; 2021 Karma Corporation. All rights reserved.</p>
+
+    </footer>
+
+    <script>
+        const database = [
+            { username: "admin", password: "admin123", role: "admin" },
+            { username: "employee1", password: "employee123", role: "employee", name: "Liora Ashford", team: "Alpha" },
+            { username: "employee2", password: "employee123", role: "employee", name: "Caden Montrose", team: "Alpha" },
+            { username: "employee3", password: "employee123", role: "employee", name: "Elara Winslow", team: "Alpha" },
+            { username: "employee4", password: "employee123", role: "employee", name: "Keaton Voss", team: "Alpha" },
+            { username: "employee5", password: "employee123", role: "employee", name: "Sarina Everhart", team: "Beta" },
+            { username: "employee6", password: "employee123", role: "employee", name: "Daxen Corbyn", team: "Beta" },
+            { username: "employee7", password: "employee123", role: "employee", name: "Zylia Rainford", team: "Beta" },
+            { username: "employee8", password: "employee123", role: "employee", name: "Alder Galloway", team: "Beta" },
+            { username: "employee9", password: "employee123", role: "employee", name: "Isolde Harrington", team: "Gamma" },
+            { username: "employee10", password: "employee123", role: "employee", name: "Tavian Crosswell", team: "Gamma" },
+            { username: "employee11", password: "employee123", role: "employee", name: "Mira Lancaster", team: "Gamma" },
+            { username: "employee12", password: "employee123", role: "employee", name: "Ronan Whitlock", team: "Gamma" },
+            { username: "employee13", password: "employee123", role: "employee", name: "Selene Drayton", team: "Delta" },
+            { username: "employee14", password: "employee123", role: "employee", name: "Thane Callister", team: "Delta" },
+            { username: "employee15", password: "employee123", role: "employee", name: "Juno Merrick", team: "Delta" },
+            { username: "employee16", password: "employee123", role: "employee", name: "Evander Falkner", team: "Delta" },
+
+        ];
+
+        const taskData = {
+            "Liora Ashford": { totalTasks: 10, completed: 7, pending: 3, currentTask: "Designing a UI mockup" },
+            "Caden Montrose": { totalTasks: 8, completed: 5, pending: 3, currentTask: "Developing API endpoints" },
+            "Elara Winslow": { totalTasks: 9, completed: 6, pending: 3, currentTask: "Testing new features" },
+            "Keaton Voss": { totalTasks: 7, completed: 4, pending: 3, currentTask: "Writing documentation" },
+            "Sarina Everhart": { totalTasks: 12, completed: 10, pending: 2, currentTask: "Updating database schemas" },
+            "Daxen Corbyn": { totalTasks: 6, completed: 4, pending: 2, currentTask: "Refactoring old code" },
+            "Zylia Rainford": { totalTasks: 11, completed: 8, pending: 3, currentTask: "Creating a new feature branch" },
+            "Alder Galloway": { totalTasks: 9, completed: 5, pending: 4, currentTask: "Bug fixing" },
+            "Isolde Harrington": { totalTasks: 10, completed: 9, pending: 1, currentTask: "Conducting code review" },
+            "Tavian Crosswell": { totalTasks: 7, completed: 6, pending: 1, currentTask: "Merging pull requests" },
+            "Mira Lancaster": { totalTasks: 13, completed: 10, pending: 3, currentTask: "Testing bug fixes" },
+            "Ronan Whitlock": { totalTasks: 5, completed: 3, pending: 2, currentTask: "Deploying new features" },
+            "Selene Drayton": { totalTasks: 14, completed: 12, pending: 2, currentTask: "Documenting system changes" },
+            "Thane Callister": { totalTasks: 6, completed: 4, pending: 2, currentTask: "Writing unit tests" },
+            "Juno Merrick": { totalTasks: 8, completed: 7, pending: 1, currentTask: "Debugging a performance issue" },
+            "Evander Falkner": { totalTasks: 10, completed: 8, pending: 2, currentTask: "Researching optimization techniques" },
+        };
+
+        function adminLogin() {
+            const username = prompt("Enter Admin Username:");
+            const password = prompt("Enter Admin Password:");
+            const user = database.find(user => user.username === username && user.role === "admin");
+
+            if (user && user.password === password) {
+                alert("Admin login successful!");
+                document.querySelector('.login-container').style.display = 'none';
+                document.getElementById('adminContent').style.display = 'block';
+                document.getElementById('about').style.display = 'none';
+                document.getElementById('services').style.display = 'none';
+                document.getElementById('contact').style.display = 'none';
+            } else {
+                alert("Invalid Admin credentials!");
+            }
+        }
+
+        function employeeLogin() {
+            const username = prompt("Enter Employee Username:");
+            const password = prompt("Enter Employee Password:");
+            const user = database.find(user => user.username === username && user.role === "employee");
+
+            if (user && user.password === password) {
+                alert(`Welcome ${user.name}!`);
+                document.querySelector('.login-container').style.display = 'none';
+                document.getElementById('employeeContent').style.display = 'block';
+                document.getElementById('about').style.display = 'none';
+                document.getElementById('services').style.display = 'none';
+                document.getElementById('contact').style.display = 'none';
+                displayEmployeeProfile(user.name);
+            } else {
+                alert("Invalid Employee credentials!");
+            }
+        }
+
+        function displayEmployeeProfile(employeeName) {
+            const profile = taskData[employeeName];
+            if (profile) {
+                const taskProgress = Math.round((profile.completed / profile.totalTasks) * 100);
+                document.getElementById("employeeDetails").innerHTML = `
+                    <h3>Team: ${database.find(user => user.name === employeeName).team}</h3>
+                    <p><strong>Total Tasks:</strong> ${profile.totalTasks}</p>
+                    <p><strong>Tasks Completed:</strong> ${profile.completed}</p>
+                    <p><strong>Tasks Pending:</strong> ${profile.pending}</p>
+                    <p><strong>Current Task:</strong> ${profile.currentTask}</p>
+                    <div class="progress-bar">
+                        <div class="progress-bar-fill" style="width: ${taskProgress}%"></div>
+                    </div>
+                    <p><strong>Progress:</strong> ${taskProgress}%</p>
+                `;
+            }
+        }
+
+        function showProfile(memberName) {
+            const profile = taskData[memberName];
+            if (profile) {
+                document.getElementById("profileName").textContent = memberName;
+                document.getElementById("profileDetails").innerHTML = `
+                    <p><strong>Total Tasks:</strong> ${profile.totalTasks}</p>
+                    <p><strong>Tasks Completed:</strong> ${profile.completed}</p>
+                    <p><strong>Tasks Pending:</strong> ${profile.pending}</p>
+                    <p><strong>Current Task:</strong> ${profile.currentTask}</p>
+                `;
+                document.getElementById("profileModal").style.display = "flex";
+            }
+        }
+
+        function closeModal() {
+            document.getElementById("profileModal").style.display = "none";
+        }
+    </script>
+
+</body>
+
+</html>
