@@ -60,8 +60,8 @@
 
         header h1 {
             position: relative;
+            top: -10px;
             left: 50px;
-            bottom: 50px;
             display: inline;
             text-shadow: 0 0 10px #1C1F26;
         }
@@ -79,6 +79,7 @@
             color: #1C1F26;
             padding: 15px 30px;
             margin: 10px;
+            margin-top: 25px;
             border: none;
             border-radius: 5px;
             font-size: 18px;
@@ -382,12 +383,6 @@
     <h1>Karma Corporation</h1>
     <img src="logo.png" alt="Karma Corporation Logo" width="100px">
     <nav id="home">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
         <div class="login-container">
             <button class="login-btn" onclick="adminLogin()">Login as Admin</button><br>
             <button class="login-btn" onclick="employeeLogin()">Login as Employee</button>
@@ -409,33 +404,6 @@
             works seamlessly, delivering both simplicity and power. Our mission is to build products that not only solve
             today’s challenges but also anticipate tomorrow's possibilities.
         </p>
-    </div>
-
-    <div id="services">
-        <div class="service1">
-            <h2>Innovative Software solutions</h2>
-            <p>Karma Corporation, we specialize in developing cutting-edge software products that are intuitive,
-                reliable, and scalable. Our solutions cater to diverse industries, enabling businesses to optimize their
-                operations, enhance productivity, and unlock new growth opportunities.Our commitment to quality ensures
-                that our software evolves with your needs, providing robust
-                functionality while being easy to use.</p>
-        </div>
-        <div class="service2">
-            <h2>Cloud Computing & Infrastructure</h2>
-            <p>Karma Corporation’s cloud computing services offer secure, scalable, and high-performance infrastructure
-                for businesses of all sizes. Our cloud solutions are designed to adapt to your business needs, providing
-                flexibility, reliability, and cost-efficiency. We provide seamless integration, ensuring that your
-                digital transformation journey is smooth and
-                future-proof, with top-tier security and performance.</p>
-        </div>
-        <div class="service3">
-            <h2>Artificial Intelligence & Machine Learning</h2>
-            <p>Karma Corporation is at the forefront of artificial intelligence and machine learning innovation. Our
-                AI-driven solutions help businesses automate complex tasks, gain predictive insights, and enhance
-                decision-making capabilities.From AI-poweredcustomer service to advanced analytics, we harness the
-                potential of machine learning to solve modern
-                business challenges and create smarter, data-driven strategies.</p>
-        </div>
     </div>
 
     <div class="admin-content" id="adminContent">
@@ -485,17 +453,6 @@
             <div class="modal-body" id="profileDetails"></div>
         </div>
     </div>
-
-    <footer id="contact">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-        <p>&copy; 2021 Karma Corporation. All rights reserved.</p>
-
-    </footer>
 
     <script>
         const database = [
